@@ -15,6 +15,8 @@ class Player(Entity):
         self.facingR = True
         self.changeDir = False
 
+        print("NEW PLAYER CREATED")
+
         self.runSS = self.spm.LoadSprite("GraveKeepRunSpritePlayerGrid")
         self.idleSS = self.spm.LoadSprite("GraveKeeperIdleSpritePlayer")
         self.shovelSprite = self.spm.LoadSprite("ShovelLone",SCALE=90,KEY=(255,255,255))
