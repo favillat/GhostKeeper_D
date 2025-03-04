@@ -20,7 +20,7 @@ class Player(Entity):
         self.runSS = self.spm.LoadSprite("GraveKeepRunSpritePlayerGrid")
         self.idleSS = self.spm.LoadSprite("GraveKeeperIdleSpritePlayer")
         self.shovelSprite = self.spm.LoadSprite("ShovelLone",SCALE=90,KEY=(255,255,255))
-        self.shovelSprite = py.transform.scale(self.shovelSprite,(16,32))
+        self.shovelSprite = py.transform.scale(self.shovelSprite,(56,32))
         self.shovelSprite = py.transform.scale_by(self.shovelSprite,3)
         self.shovelSprite = py.transform.rotate(self.shovelSprite,-90)
 
