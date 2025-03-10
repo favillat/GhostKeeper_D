@@ -2,7 +2,7 @@ import pygame as py
 import numpy as np
 import math
 from Utils import utils as utils 
-import gui
+from gui import GUI,CardManager
 import World
 import Player
 import Enemy
@@ -23,7 +23,8 @@ class Game:
 
         # Modukes
         self.ut = utils()
-        self.gui = gui.GUI()
+        self.gui = GUI()
+        self.cardManager = CardManager()
         self.world = World.World()
         self.world.popWorld()
         self.plr = Player.Player()
@@ -60,13 +61,13 @@ class Game:
 
                     #Detects Mouse Click; Plants Plant if Availiable 
                     if self.ut.pointInBounds(gridPosition= gridPos,bound= self.world.gridSize): 
-                        if self.gui.cardPicked:
-                            tempPlant = self.world.plantMan.createNewPlant(self.gui.selectedCard["type"])
+                        if self.cardManager.cardPicked:
+                            tempPlant = self.world.plantMan.createNewPlant(self.gui.selectedCard["Type"])
                             tempPlant.pos = self.ut.MapToScreen(gridPos.x,gridPos.y)
                            
                             self.world.plantMan.plant(tempPlant)
-                            print("PLACED",self.gui.selectedCard["type"], "AT: ",gridPos)
-                            self.gui.cardPicked = False   
+                            print("PLACED",self.cardManager.selectedCard["Type"], "AT: ",gridPos)
+                            self.cardManager.cardPicked = False   
 
 
             keys = py.key.get_pressed()
@@ -76,7 +77,7 @@ class Game:
             if keys:
                 if keys[py.K_SPACE]:
                     if(self.ut.Timer(.2) == 0):
-                        self.gui.addCard("sun")
+                        self.cardManager.addCard("sun")
                     
                 if keys[py.K_1]:
                     self.newWave = True
@@ -100,7 +101,7 @@ class Game:
 
                     #If We're Selecting A Valid Tile On The Grid to Highlight
                     if self.ut.pointInBounds(gridPosition = gridPos,bound = self.world.gridSize): 
-                        if gridPos.x == x and gridPos.y == y and self.gui.cardPicked:
+                        if gridPos.x == x and gridPos.y == y and self.cardManager.cardPicked:
                             curTile.y -= 5
                             highlighting = True
                         else:
@@ -111,7 +112,7 @@ class Game:
 
                     if highlighting:
                         self.win.blit(self.world.tileHSprite,curTile)
-                        if self.gui.cardPicked:
+                        if self.cardManager.cardPicked:
                             tempPlantOBJ = self.world.plantMan.createNewPlant("sun")
                             tempPlantOBJ.sprite.set_alpha(self.world.plantMan.constructAlpha)
 
@@ -152,7 +153,7 @@ class Game:
                 if self.text.get_rect().width == 0:
                     self.newWave = False
     
-            self.gui.update()
+            self.cardManager.update()
 
             # Draw
             self.win.blit(self.gui.cursor,(msPos[0] - self.gui.cursor.get_width()/2,msPos[1] - self.gui.cursor.get_height()/2,))
