@@ -10,14 +10,15 @@ class GUI:
         self.ut = ut()
         self.spm = spm()
         self.win = py.display.get_surface()
-        self.screenRes = self.win.get_size()
-        self.screenRes = py.Vector2(self.screenRes[0],self.screenRes[1])
+        self.screenRes = py.Vector2(self.win.get_size()[0],self.win.get_size()[1])
+
         self.font = py.font.Font("./assets/fonts/PixelifySans-Regular.ttf",50)
+        self.cursor = self.spm.LoadSprite("Cursor-1",SCALE=40)
 
         #Cards + Settings
-        self.cards = {"plant":self.spm.LoadSprite("PlantCard2",SCALEBY=5) }
+        self.cards = {"sun":self.spm.LoadSprite("PlantCard2",SCALEBY=5) }
         self.inv = [] #{"type": "plant1", "pos":(0,0)},{"type": "plant2", "pos":(300,0)}
-        self.CARD_SIZE = self.cards["plant"].get_rect() 
+        self.CARD_SIZE = self.cards["sun"].get_rect() 
         self.MAX_CARDS = 5
         self.WAVE_FACTOR = 3
 
@@ -104,8 +105,7 @@ class GUI:
                         self.win.blit(self.cards[x["type"]],(x["rect"].left,x["rect"].top))
                         #py.draw.rect(self.win,"green",x["rect"],2)
                         
-                    x["rect"].top = self.screenRes.y - self.CARD_SIZE.height/2
-            
+                    x["rect"].top = self.screenRes.y - self.CARD_SIZE.height/2     
 
     def addCard(self,card):
         if len(self.inv) < self.MAX_CARDS:
@@ -127,7 +127,7 @@ class GUI:
     def rearrangeCards(self):
         for x in self.inv:
             tPos = py.Vector2((x["id"]*self.CARD_SIZE.width), self.screenRes.y-self.CARD_SIZE.height/2)
-            tRect = self.cards["plant"].get_rect()
+            tRect = self.cards["sun"].get_rect()
 
             tRect.top = tPos.y
             tRect.left = tPos.x + (self.screenRes.x - (len(self.inv)*self.CARD_SIZE.width))/2

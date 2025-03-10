@@ -12,6 +12,8 @@ class Entity:
         self.pos = py.Vector2(0,0)
         self.states = ["IDLE","RUN","ATTACK"]
         self.curState = self.states[0];
+        self.sprite = py.surface.Surface((0,0))
+
 
         self.animations = 0
 

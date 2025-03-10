@@ -11,12 +11,11 @@ class Player(Entity):
         self.damage = 10
         self.health = 100
         self.pos = py.math.Vector2(300,200)
-        self.sprite = py.surface.Surface((0,0))
+        #self.sprite = py.surface.Surface((0,0))
         self.facingR = True
         self.changeDir = False
 
-        print("NEW PLAYER CREATED")
-
+        #LOADS ANIMATIONS 
         self.runSS = self.spm.LoadSprite("GraveKeepRunSpritePlayerGrid")
         self.idleSS = self.spm.LoadSprite("GraveKeeperIdleSpritePlayer")
         self.shovelSprite = self.spm.LoadSprite("ShovelLone",SCALE=90,KEY=(255,255,255))
@@ -30,9 +29,7 @@ class Player(Entity):
 
         self.curSprite = 0;
         self.maxSprite = (self.spm.ssDimensions * self.spm.ssDimensions)-1
-
-        
-
+     
     def move(self,keys):
               
         if keys:

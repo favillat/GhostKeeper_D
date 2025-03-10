@@ -2,6 +2,7 @@ import pygame as pg
 import numpy as np
 from Utils import utils as ut
 from Utils import SpriteManager as spm
+from Plant import PlantManager
 
 class World:
     def __init__(self):
@@ -14,11 +15,17 @@ class World:
         self.tileSprite = self.spm.LoadSprite("IsoFarmTile7")
         self.bg = self.spm.LoadSprite("bg3")
         self.tileHSprite = self.spm.LoadSprite("IsoFarmTileH")
-        self.plant = self.spm.LoadSprite("Plant")
-
+        self.plantMan = PlantManager()
+        
         self.tiles = []
+        self.plantedPlants = self.plantMan.planted
 
-
+    #Returns List Of Current Plants On Map, Along With Position and Sprite
+    def getPlanted(self):
+        self.plantedPlants = self.plantMan.planted
+        return self.plantedPlants
+    
+    #Simple Map Generation; A Symmetric Grid is Created
     def popWorld(self):
         for x in range(self.gridSize):
             temp = []
