@@ -2,12 +2,13 @@ import pygame as py
 import numpy as np
 import math
 from Entitiy import Entity
+from gui import GUI
 
 
 class Player(Entity):
     def __init__(self):
         super().__init__()
-        self.speed = 1.1
+        self.speed = 1.3
         self.damage = 10
         self.health = 100
         self.pos = py.math.Vector2(300,200)
@@ -29,6 +30,8 @@ class Player(Entity):
 
         self.curSprite = 0;
         self.maxSprite = (self.spm.ssDimensions * self.spm.ssDimensions)-1
+
+        self.gui = GUI()
      
     def move(self,keys):
               
@@ -78,6 +81,8 @@ class Player(Entity):
 
                 if(not self.facingR):
                     self.sprite = py.transform.flip(self.sprite,True,False)
+
+        self.gui.updateHealthBar(self.health)
 
 
     

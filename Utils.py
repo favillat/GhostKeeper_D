@@ -25,7 +25,8 @@ class utils:
     #Takes Grid Coordinates and Converts Them to Screen Coordinates
     def MapToScreen(self,x,y):
         screenX = (((x-y)*self.SCALAR_HALF) - self.SCALAR_HALF) + self.screenRes.x/2
-        screenY = ((x+y)*self.SCALAR_QUART) +(self.screenRes.y/4)#+np.sin((py.time.get_ticks()/1000)*.5*np.pi)*5    
+        screenY = ((x+y)*self.SCALAR_QUART) +(self.screenRes.y/4)  
+
         return py.Vector2(screenX,screenY)
 
     #Takes Screen Coordinates and Converts Them to Grid Coordinates
@@ -42,7 +43,6 @@ class utils:
     def Timer(self, waitTime):
         self.curtime = (t.time()-self.t0)
         timeLeft = ((waitTime-self.curtime))
-        #print ("CURRENT TIME: ", str(math.floor(self.curtime)), " TIME LEFT: ", str(math.floor(timeLeft)),"INPUT: ",str(waitTime))
         if(self.curtime > waitTime):
             self.t0 = t.time()
             return 0
@@ -68,6 +68,21 @@ class utils:
             return True
         else: return False
     
+    #Changes color of an image by making a copy and masking it over the old one
+    def swapColor(self,surface, oldColor, newColor):
+        imgCopy = py.Surface(surface.get_size())
+        imgCopy.fill(newColor)
+        surface.set_colorkey(oldColor)
+        imgCopy.blit(surface,(0,0))
+
+        imgCopy.set_colorkey((0,0,0))
+        surface.set_colorkey((0,0,0))
+
+
+        return imgCopy
+
+
+
 
 class SpriteManager:
     def __init__(self):

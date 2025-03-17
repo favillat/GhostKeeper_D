@@ -4,8 +4,11 @@ import pygame as py
 
 class Entity:
     def __init__(self):
+        ### MODULES ###
         self.spm = SpriteManager()
         self.ut = utils()
+
+        ### VARIABLES ###
         self.health = 100
         self.damage = 10
         self.speed =  20

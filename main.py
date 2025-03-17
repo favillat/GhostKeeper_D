@@ -2,7 +2,8 @@ import pygame as py
 import numpy as np
 import math
 from Utils import utils as utils 
-from gui import GUI,CardManager
+from gui import GUI
+from Card import CardManager
 import World
 import Player
 import Enemy
@@ -60,13 +61,13 @@ class Game:
                 if event.type == py.MOUSEBUTTONUP:
 
                     #Detects Mouse Click; Plants Plant if Availiable 
-                    if self.ut.pointInBounds(gridPosition= gridPos,bound= self.world.gridSize): 
+                    if self.ut.pointInBounds(gridPosition= gridPos,bound= self.world.gridSize) and not self.ut.IntersectsBounds(self.cardManager.deckBoundingRect,self.ut.getMousePos()): 
                         if self.cardManager.cardPicked:
-                            tempPlant = self.world.plantMan.createNewPlant(self.gui.selectedCard["Type"])
+                            tempPlant = self.world.plantMan.createNewPlant(self.cardManager.selectedCard["Type"])
                             tempPlant.pos = self.ut.MapToScreen(gridPos.x,gridPos.y)
                            
                             self.world.plantMan.plant(tempPlant)
-                            print("PLACED",self.cardManager.selectedCard["Type"], "AT: ",gridPos)
+                            
                             self.cardManager.cardPicked = False   
 
 
@@ -85,13 +86,11 @@ class Game:
 
             ### CLEAR SCREEN ###
             self.win.fill("#202020")
+            self.world.drawBG()
 
-            #Draw Background
-            for x in range(10):
-                for y in range(10):            
-                    self.win.blit(self.world.bg,(x*self.ut.SCALAR,y*self.ut.SCALAR))
+            if(self.cardManager.cardPicked):
+                self.gui.Popup((self.cardManager.selectedCard["Type"]).upper(),100)
             
-           
             # Process Tiles
             for x in range(self.world.gridSize):
                 for y in range(self.world.gridSize):
@@ -122,14 +121,7 @@ class Game:
                             self.win.blit(tempPlantOBJ.sprite,tPos)
                     
             #Render Plants
-            planted = self.world.getPlanted()
-            for x in range(len(planted)):
-                    tempPlant = planted[x]
-                    tempSprite = tempPlant["Object"].sprite
-                    tempPos = tempPlant["Object"].pos
-                    tempPos = (tempPos.x-self.camOffset.x,tempPos.y-self.camOffset.y-(self.ut.SCALAR-self.ut.SCALAR_QUART))
-                    self.win.blit(tempSprite,tempPos)
-
+            self.world.drawPlants(self.camOffset)
 
             #Draw Player
             self.plr.update()
