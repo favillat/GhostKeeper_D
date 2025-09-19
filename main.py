@@ -12,6 +12,8 @@ class Game:
     def __init__(self):
         py.init()
 
+        gameStates = ["TITLE","PLAYING","GAMEOVER"]
+
         #Window
         self.screenRes = py.Vector2(900,700)
         self.win = py.display.set_mode((self.screenRes))
@@ -19,7 +21,8 @@ class Game:
 
         # Setup
         self.clock = py.time.Clock()
-        self.running = True
+        self.title = True
+        self.running = False
         self.dt = 0
 
         # Modukes
@@ -37,13 +40,34 @@ class Game:
         self.camOffset = py.Vector2(self.plr.getPos().x - self.halfWinW,self.plr.getPos().y - self.halfWinH)
 
         #self.plantedPlants = [] #{"type": ,"pos": }}
-        
+    
+    def titleScreen(self):
+        while self.title:
+            for event in py.event.get(): 
+                if event.type == py.QUIT:
+                    self.title = False
+                    self.running = False
+                
+                if event.type == py.MOUSEBUTTONUP:
+                    self.title = False
+                    self.running = True
+
+            self.win.fill("#202020")
+            self.gui.drawText("GHOST PLANTER",self.win.get_size()[0]//2,self.win.get_size()[1]//2 - 100,64,"#FFFFFF",True)
+            self.gui.drawText("CLICK TO START",self.win.get_size()[0]//2,self.win.get_size()[1]//2 + 100,32,"#FFFFFF",True)
+
+            py.display.flip()
+            self.clock.tick(60)
+
+
     def run(self):
         self.worldTiles = self.world.tiles
         self.isMoving = False
 
         self.newWave = False
         self.text = None
+
+
 
         ## MAIN GAME LOOP ###
         py.mouse.set_visible(False)
@@ -156,4 +180,5 @@ class Game:
 
         py.quit()
 
+Game().titleScreen()
 Game().run()
