@@ -51,11 +51,10 @@ class Game:
                 if event.type == py.MOUSEBUTTONUP:
                     self.title = False
                     self.running = True
+                    self.run()
 
             self.win.fill("#202020")
-            self.gui.drawText("GHOST PLANTER",self.win.get_size()[0]//2,self.win.get_size()[1]//2 - 100,64,"#FFFFFF",True)
-            self.gui.drawText("CLICK TO START",self.win.get_size()[0]//2,self.win.get_size()[1]//2 + 100,32,"#FFFFFF",True)
-
+          
             py.display.flip()
             self.clock.tick(60)
 
@@ -181,4 +180,3 @@ class Game:
         py.quit()
 
 Game().titleScreen()
-Game().run()
