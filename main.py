@@ -18,7 +18,7 @@ class Game:
         #Window
         self.screenRes = py.Vector2(900,700)
         self.win = py.display.set_mode((self.screenRes))
-        py.display.set_caption('Ghost Planter!')
+        py.display.set_caption('MAUSOLEUM!')
 
         # Setup
         self.clock = py.time.Clock()
@@ -26,7 +26,7 @@ class Game:
         self.running = False
         self.dt = 0
 
-        # Modukes
+        # Modules
         self.ut = utils()
         self.spm = spm()
         self.gui = GUI()
@@ -36,7 +36,6 @@ class Game:
         self.plr = player.Player()
         self.ghost1 = enemy.Enemy()
 
-        #TEMP
     
         #CAMERA SETTINGS
         self.halfWinH = self.win.get_size()[1]//2
@@ -65,10 +64,12 @@ class Game:
             bottomTitleRect = fullTitle.subsurface((py.Rect(0,90, fullTitle.get_rect().width, fullTitle.get_rect().height/2)))
 
             titleMagnitude = 5
-            titleStartPos = 100
+            titleStartPos = 110
             titleSpeed = 500
 
             self.win.fill("#202020")
+            self.world.drawBG()
+
             self.win.blit(topTitle,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),30))
             self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),titleStartPos + math.sin(py.time.get_ticks()/titleSpeed) * titleMagnitude))
 

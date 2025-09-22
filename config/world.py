@@ -7,7 +7,7 @@ from entity.plant import PlantManager
 class World:
     def __init__(self):
         ## Variables ##
-        self.gridSize = 10
+        self.gridSize = 12
         self.spm = spm()
         self.ut = ut()
         self.win = py.display.get_surface()

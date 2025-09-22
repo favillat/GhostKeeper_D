@@ -16,7 +16,7 @@ class GUI:
 
         self.font = py.font.Font("./assets/fonts/PixelifySans-Regular.ttf",50)
         self.cursor = self.spm.LoadSprite("Cursor-1",SCALE=40)
-        self.heart = self.spm.LoadSprite("HP", SCALE = 40)
+        self.heart = self.spm.LoadSprite("HP", SCALE = 45)
         self.heartBG = self.ut.swapColor(self.heart, (199,199,199),(23,23,23))
         self.heartBG = py.transform.scale(self.heartBG,(45,45))
         
