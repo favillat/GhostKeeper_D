@@ -20,7 +20,7 @@ class utils:
         #self.clock = py.time.Clock()
         self.t0 = t.time()
 
-        print("TIME STARTED ", self.t0/1000)
+        #print("TIME STARTED ", self.t0/1000)
         
     #Takes Grid Coordinates and Converts Them to Screen Coordinates
     def MapToScreen(self,x,y):
@@ -105,7 +105,7 @@ class SpriteManager:
             img.set_alpha(ALPHA)
             img.set_colorkey(KEY)
 
-            print(str(NAME)," SPRITE LOADED")
+            #print(str(NAME)," SPRITE LOADED")
             return img
         except:
             print("FAILED TO LOAD: ",str(NAME)," SPRITE")

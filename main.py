@@ -8,13 +8,14 @@ from card import CardManager
 import world
 import player
 import enemy
+from config.hello import helloFunct
 
 class Game:
     def __init__(self):
         py.init()
 
         gameStates = ["TITLE","PLAYING","GAMEOVER"]
-
+        helloFunct()
 
         #Window
         self.screenRes = py.Vector2(900,700)
