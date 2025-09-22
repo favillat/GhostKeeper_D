@@ -3,7 +3,7 @@ import numpy as np
 import math
 import random as rand
 import Utils as ut 
-from Entitiy import Entity
+from Entity import Entity
 
 class EnemyManager():
     def __init__(self):

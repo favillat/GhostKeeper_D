@@ -22,7 +22,7 @@ class Game:
         self.running = True
         self.dt = 0
 
-        # Modukes
+        # Modules
         self.ut = utils()
         self.gui = GUI()
         self.cardManager = CardManager()
@@ -60,7 +60,7 @@ class Game:
                 
                 if event.type == py.MOUSEBUTTONUP:
 
-                    #Detects Mouse Click; Plants Plant if Availiable 
+                    #Detects Mouse Click; Plants Plant if Available 
                     if self.ut.pointInBounds(gridPosition= gridPos,bound= self.world.gridSize) and not self.ut.IntersectsBounds(self.cardManager.deckBoundingRect,self.ut.getMousePos()): 
                         if self.cardManager.cardPicked:
                             tempPlant = self.world.plantMan.createNewPlant(self.cardManager.selectedCard["Type"])

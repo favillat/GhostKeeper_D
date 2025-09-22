@@ -1,7 +1,7 @@
 import pygame as py
 import numpy as np
 import math
-from Entitiy import Entity
+from Entity import Entity
 from gui import GUI
 
 
@@ -12,9 +12,8 @@ class Player(Entity):
         self.damage = 10
         self.health = 100
         self.pos = py.math.Vector2(300,200)
+        self.vect = py.math.Vector2(0,0)
         #self.sprite = py.surface.Surface((0,0))
-        self.facingR = True
-        self.changeDir = False
 
         #LOADS ANIMATIONS 
         self.runSS = self.spm.LoadSprite("GraveKeepRunSpritePlayerGrid")
@@ -34,33 +33,20 @@ class Player(Entity):
         self.gui = GUI()
      
     def move(self,keys):
-              
-        if keys:
-            
-            if keys[py.K_w]:
-                self.curState = self.states[1]
-                self.pos.y -= self.speed 
-            elif keys[py.K_s]:
-                self.curState = self.states[1]
-
-                self.pos.y += self.speed
-            elif keys[py.K_a]:
-                self.pos.x -= self.speed 
-                self.curState = self.states[1]
-
-                if(self.facingR):
-                    self.facingR = False
-               
-            elif keys[py.K_d]:
-                self.curState = self.states[1]
-
-                self.pos.x += self.speed 
-
-                if(not self.facingR):
-                    self.facingR = True
-            else:
-                self.curState = self.states[0]
-        #print("CURRENT FRAME: ",self.sprite)
+        up = keys[py.K_w] or keys[py.K_UP]
+        down = keys[py.K_s] or keys[py.K_DOWN]
+        left = keys[py.K_a] or keys[py.K_LEFT]
+        right = keys[py.K_d] or keys[py.K_RIGHT]
+        # unit vector of movement? idk if thats the right term - julian
+        self.vect = py.math.Vector2(right - left, down - up)
+        if self.vect.length_squared() > 0:
+            # gives unit vector a magnitude equal to speed variable, should allow for modularity in future updates
+            self.vect.scale_to_length(self.speed)
+            self.pos += self.vect
+            # position is now a sum of the new vector
+            self.curState = "RUN"
+        else:
+            self.curState = "IDLE"
     
     def getPos(self):
         return self.pos
@@ -71,7 +57,7 @@ class Player(Entity):
                 self.sprite = self.animations[self.curState][0][self.curSprite]
                 self.curSprite += 1
 
-                if(not self.facingR):
+                if(self.vect.x < 0):
                     self.sprite = py.transform.flip(self.sprite,True,False)
                 
                         
@@ -79,7 +65,7 @@ class Player(Entity):
                 self.curSprite = 0
                 self.sprite = self.animations[self.curState][0][self.curSprite]
 
-                if(not self.facingR):
+                if(self.vect.x < 0):
                     self.sprite = py.transform.flip(self.sprite,True,False)
 
         self.gui.updateHealthBar(self.health)
