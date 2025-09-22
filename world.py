@@ -1,8 +1,8 @@
 import pygame as py
 import numpy as np
-from Utils import utils as ut
-from Utils import SpriteManager as spm
-from Plant import PlantManager
+from utils import utils as ut
+from utils import SpriteManager as spm
+from plant import PlantManager
 
 class World:
     def __init__(self):

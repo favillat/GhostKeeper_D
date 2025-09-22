@@ -1,7 +1,7 @@
 import pygame as py
 import numpy as np
 import math
-from Entitiy import Entity
+from entitiy import Entity
 from gui import GUI
 
 

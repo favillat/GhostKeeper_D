@@ -1,13 +1,13 @@
 import pygame as py
 import numpy as np
 import math
-from Utils import utils as utils 
-from Utils import SpriteManager as spm 
+from utils import utils as utils 
+from utils import SpriteManager as spm 
 from gui import GUI
-from Card import CardManager
-import World
-import Player
-import Enemy
+from card import CardManager
+import world
+import player
+import enemy
 
 class Game:
     def __init__(self):
@@ -32,10 +32,10 @@ class Game:
         self.spm = spm()
         self.gui = GUI()
         self.cardManager = CardManager()
-        self.world = World.World()
+        self.world = world.World()
         self.world.popWorld()
-        self.plr = Player.Player()
-        self.ghost1 = Enemy.Enemy()
+        self.plr = player.Player()
+        self.ghost1 = enemy.Enemy()
 
         #TEMP
     

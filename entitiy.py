@@ -1,5 +1,5 @@
-from Utils import SpriteManager
-from Utils import utils
+from utils import SpriteManager
+from utils import utils
 import pygame as py
 
 class Entity:
