@@ -2,8 +2,8 @@ import pygame as py
 import numpy as np
 import math
 import random as rand
-import utils as ut 
-from entitiy import Entity
+import config.utils as ut 
+from entity.entitiy import Entity
       
 class PlantManager():
     def __init__(self):

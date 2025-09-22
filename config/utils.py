@@ -1,6 +1,5 @@
 import pygame as py
 import math
-import os 
 import time as t
 
 SCALAR = 90

@@ -1,8 +1,8 @@
 import pygame as py
 import numpy as np
 import math
-from utils import utils as ut 
-from utils import SpriteManager as spm
+from config.utils import utils as ut 
+from config.utils import SpriteManager as spm
 
 class GUI:
     def __init__(self):

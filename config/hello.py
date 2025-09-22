@@ -1,2 +1,0 @@
-def helloFunct():
-    print("testing")

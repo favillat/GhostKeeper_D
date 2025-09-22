@@ -1,4 +1,4 @@
-from gui import GUI
+from gui.gui import GUI
 import pygame as py
 
 class CardManager(GUI):
