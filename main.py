@@ -54,10 +54,17 @@ class Game:
                     self.run()
 
 
-            text = self.gui.font.render("Ghost Planter!",True,(202,202,202))
+            tText = self.gui.font.render("Ghost Planter!",True,(202,202,202))
 
             self.win.fill("#202020")
-            self.win.blit(text,((self.screenRes.x/2)-(text.get_rect().width/2),20))
+            self.win.blit(tText,((self.screenRes.x/2)-(tText.get_rect().width/2),20))
+
+            pText = self.gui.font.render("Play!",True,(202,202,202))
+
+            self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
+
+
+
           
             py.display.flip()
             self.clock.tick(60)
