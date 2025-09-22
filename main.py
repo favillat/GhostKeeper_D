@@ -5,6 +5,7 @@ from config.utils import utils as utils
 from config.utils import SpriteManager as spm 
 from gui.gui import GUI
 from gui.card import CardManager
+from gui.button import Button
 import config.world as world
 import entity.player as player
 import entity.enemy as enemy
@@ -56,6 +57,7 @@ class Game:
                     self.title = False
                     self.running = True
                     self.run()
+                    
 
 
           
@@ -72,10 +74,13 @@ class Game:
             self.win.blit(topTitle,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),30))
             self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),titleStartPos + math.sin(py.time.get_ticks()/titleSpeed) * titleMagnitude))
 
+            
             #play button
-            pText = self.gui.font.render("Play!",True,(202,202,202))
+           #pText = self.gui.font.render("Play!",True,(202,202,202))
+            playButton = Button("Play!",300, 300,300,300,(255,255,255),True)
+            
 
-            self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
+            #self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
 
             #guide button
             gText = self.gui.font.render("Guide",True,(202,202,202))
