@@ -60,18 +60,15 @@ class Game:
 
 
             #title
-            tText = self.gui.font.render("Ghost Planter!",True,(202,202,202))
-
-            titlePNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
-            sprite_rect = py.Rect(0, 0, 240*3, 30*3)
-            sprite_rect_temp = py.Rect(0, 30*3, 240*3, 32*3)
-            mosPNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
-            croppedTitle = titlePNG.subsurface(sprite_rect)
-            croppedTitle_main = titlePNG.subsurface(sprite_rect_temp)
+          
+            fullTitle = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
+          
+            topTitle = fullTitle.subsurface((py.Rect(0, 0, fullTitle.get_rect().width,90)))
+            bottomTitleRect = fullTitle.subsurface((py.Rect(0,90, fullTitle.get_rect().width, fullTitle.get_rect().height/2)))
 
             self.win.fill("#202020")
-            self.win.blit(croppedTitle,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),30))
-            self.win.blit(croppedTitle_main,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),100 + math.sin(py.time.get_ticks()/400) * 5))
+            self.win.blit(topTitle,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),30))
+            self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),100 + math.sin(py.time.get_ticks()/400) * 5))
 
             #play button
             pText = self.gui.font.render("Play!",True,(202,202,202))
