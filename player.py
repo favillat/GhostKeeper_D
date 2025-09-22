@@ -8,13 +8,12 @@ from gui import GUI
 class Player(Entity):
     def __init__(self):
         super().__init__()
-        self.speed = 1.3
+        self.speed = 1.45
         self.damage = 10
         self.health = 100
         self.pos = py.math.Vector2(300,200)
         #self.sprite = py.surface.Surface((0,0))
         self.facingR = True
-        self.changeDir = False
 
         #LOADS ANIMATIONS 
         self.runSS = self.spm.LoadSprite("GraveKeepRunSpritePlayerGrid")
@@ -28,39 +27,28 @@ class Player(Entity):
         super().loadAnimation(self.runSS,"RUN",0.1)
         super().loadAnimation(self.idleSS,"IDLE",0.35)
 
-        self.curSprite = 0;
+        self.curSprite = 0
         self.maxSprite = (self.spm.ssDimensions * self.spm.ssDimensions)-1
 
         self.gui = GUI()
      
-    def move(self,keys):
-              
-        if keys:
-            
-            if keys[py.K_w]:
-                self.curState = self.states[1]
-                self.pos.y -= self.speed 
-            elif keys[py.K_s]:
-                self.curState = self.states[1]
+    def move(self,keys):    
+        up = keys[py.K_w] or keys[py.K_UP]
+        down = keys[py.K_s] or keys[py.K_DOWN]
+        left = keys[py.K_a] or keys[py.K_LEFT]
+        right = keys[py.K_d] or keys[py.K_RIGHT]
 
-                self.pos.y += self.speed
-            elif keys[py.K_a]:
-                self.pos.x -= self.speed 
-                self.curState = self.states[1]
-
-                if(self.facingR):
-                    self.facingR = False
-               
-            elif keys[py.K_d]:
-                self.curState = self.states[1]
-
-                self.pos.x += self.speed 
-
-                if(not self.facingR):
-                    self.facingR = True
-            else:
-                self.curState = self.states[0]
-        #print("CURRENT FRAME: ",self.sprite)
+        # unit vector of movement? idk if thats the right term - julian
+        self.vect = py.math.Vector2(right - left, down - up)
+        if self.vect.length_squared() > 0:
+            # gives unit vector a magnitude equal to speed variable, should allow for modularity in future updates
+            self.vect.scale_to_length(self.speed)
+            self.pos += self.vect
+            self.facingR = self.vect.x > 0
+            # position is now a sum of the new vector
+            self.curState = "RUN"
+        else:
+            self.curState = "IDLE"
     
     def getPos(self):
         return self.pos
