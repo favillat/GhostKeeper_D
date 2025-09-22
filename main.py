@@ -61,10 +61,17 @@ class Game:
 
             #title
             tText = self.gui.font.render("Ghost Planter!",True,(202,202,202))
+
             titlePNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
+            sprite_rect = py.Rect(0, 0, 240*3, 30*3)
+            sprite_rect_temp = py.Rect(0, 30*3, 240*3, 32*3)
+            mosPNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
+            croppedTitle = titlePNG.subsurface(sprite_rect)
+            croppedTitle_main = titlePNG.subsurface(sprite_rect_temp)
 
             self.win.fill("#202020")
-            self.win.blit(titlePNG,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),30))
+            self.win.blit(croppedTitle,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),30))
+            self.win.blit(croppedTitle_main,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),100 + math.sin(py.time.get_ticks()/400) * 5))
 
             #play button
             pText = self.gui.font.render("Play!",True,(202,202,202))
