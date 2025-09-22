@@ -1,8 +1,8 @@
 import pygame as py
 import numpy as np
 import math
-from entitiy import Entity
-from gui import GUI
+from entity.entitiy import Entity
+from gui.gui import GUI
 
 
 class Player(Entity):

@@ -1,21 +1,19 @@
 import pygame as py
 import numpy as np
 import math
-from utils import utils as utils 
-from utils import SpriteManager as spm 
-from gui import GUI
-from card import CardManager
-import world
-import player
-import enemy
-from config.hello import helloFunct
+from config.utils import utils as utils 
+from config.utils import SpriteManager as spm 
+from gui.gui import GUI
+from gui.card import CardManager
+import config.world as world
+import entity.player as player
+import entity.enemy as enemy
 
 class Game:
     def __init__(self):
         py.init()
 
         gameStates = ["TITLE","PLAYING","GAMEOVER"]
-        helloFunct()
 
         #Window
         self.screenRes = py.Vector2(900,700)
