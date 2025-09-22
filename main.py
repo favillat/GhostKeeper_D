@@ -59,15 +59,29 @@ class Game:
                     self.run()
 
 
+            #title
             tText = self.gui.font.render("Ghost Planter!",True,(202,202,202))
             titlePNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
 
             self.win.fill("#202020")
             self.win.blit(titlePNG,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),30))
 
+            #play button
             pText = self.gui.font.render("Play!",True,(202,202,202))
 
             self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
+
+            #guide button
+            gText = self.gui.font.render("Guide",True,(202,202,202))
+
+            self.win.blit(gText,((self.screenRes.x/2)-(gText.get_rect().width/2),400))
+
+            #quit button
+
+            qText = self.gui.font.render("Quit",True,(202,202,202))
+
+            self.win.blit(qText,((self.screenRes.x/2)-(qText.get_rect().width/2),500))
+
 
 
 
