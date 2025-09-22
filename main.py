@@ -2,6 +2,7 @@ import pygame as py
 import numpy as np
 import math
 from Utils import utils as utils 
+from Utils import SpriteManager as spm 
 from gui import GUI
 from Card import CardManager
 import World
@@ -13,6 +14,7 @@ class Game:
         py.init()
 
         gameStates = ["TITLE","PLAYING","GAMEOVER"]
+
 
         #Window
         self.screenRes = py.Vector2(900,700)
@@ -27,12 +29,15 @@ class Game:
 
         # Modukes
         self.ut = utils()
+        self.spm = spm()
         self.gui = GUI()
         self.cardManager = CardManager()
         self.world = World.World()
         self.world.popWorld()
         self.plr = Player.Player()
         self.ghost1 = Enemy.Enemy()
+
+        #TEMP
     
         #CAMERA SETTINGS
         self.halfWinH = self.win.get_size()[1]//2
@@ -55,9 +60,10 @@ class Game:
 
 
             tText = self.gui.font.render("Ghost Planter!",True,(202,202,202))
+            titlePNG = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
 
             self.win.fill("#202020")
-            self.win.blit(tText,((self.screenRes.x/2)-(tText.get_rect().width/2),20))
+            self.win.blit(titlePNG,((self.screenRes.x/2)-(titlePNG.get_rect().width/2),30))
 
             pText = self.gui.font.render("Play!",True,(202,202,202))
 
