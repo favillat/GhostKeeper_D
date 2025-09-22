@@ -1,16 +1,19 @@
 import pygame as py
 import numpy as np
 import math
-from Utils import utils as utils 
-from gui import GUI
-from Card import CardManager
-import World
-import Player
-import Enemy
+from config.utils import utils as utils 
+from config.utils import SpriteManager as spm 
+from gui.gui import GUI
+from gui.card import CardManager
+import config.world as world
+import entity.player as player
+import entity.enemy as enemy
 
 class Game:
     def __init__(self):
         py.init()
+
+        gameStates = ["TITLE","PLAYING","GAMEOVER"]
 
         #Window
         self.screenRes = py.Vector2(900,700)
@@ -19,17 +22,21 @@ class Game:
 
         # Setup
         self.clock = py.time.Clock()
-        self.running = True
+        self.title = True
+        self.running = False
         self.dt = 0
 
         # Modules
         self.ut = utils()
+        self.spm = spm()
         self.gui = GUI()
         self.cardManager = CardManager()
-        self.world = World.World()
+        self.world = world.World()
         self.world.popWorld()
-        self.plr = Player.Player()
-        self.ghost1 = Enemy.Enemy()
+        self.plr = player.Player()
+        self.ghost1 = enemy.Enemy()
+
+        #TEMP
     
         #CAMERA SETTINGS
         self.halfWinH = self.win.get_size()[1]//2
@@ -37,13 +44,66 @@ class Game:
         self.camOffset = py.Vector2(self.plr.getPos().x - self.halfWinW,self.plr.getPos().y - self.halfWinH)
 
         #self.plantedPlants = [] #{"type": ,"pos": }}
-        
+    
+    def titleScreen(self):
+        while self.title:
+            for event in py.event.get(): 
+                if event.type == py.QUIT:
+                    self.title = False
+                    self.running = False
+                
+                if event.type == py.MOUSEBUTTONUP:
+                    self.title = False
+                    self.running = True
+                    self.run()
+
+
+          
+            fullTitle = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
+          
+            topTitle = fullTitle.subsurface((py.Rect(0, 0, fullTitle.get_rect().width,90)))
+            bottomTitleRect = fullTitle.subsurface((py.Rect(0,90, fullTitle.get_rect().width, fullTitle.get_rect().height/2)))
+
+            titleMagnitude = 5
+            titleStartPos = 100
+            titleSpeed = 500
+
+            self.win.fill("#202020")
+            self.win.blit(topTitle,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),30))
+            self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),titleStartPos + math.sin(py.time.get_ticks()/titleSpeed) * titleMagnitude))
+
+            #play button
+            pText = self.gui.font.render("Play!",True,(202,202,202))
+
+            self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
+
+            #guide button
+            gText = self.gui.font.render("Guide",True,(202,202,202))
+
+            self.win.blit(gText,((self.screenRes.x/2)-(gText.get_rect().width/2),400))
+
+            #quit button
+
+            qText = self.gui.font.render("Quit",True,(202,202,202))
+
+            self.win.blit(qText,((self.screenRes.x/2)-(qText.get_rect().width/2),500))
+
+
+
+
+          
+            py.display.flip()
+            self.clock.tick(60)
+
+
     def run(self):
         self.worldTiles = self.world.tiles
         self.isMoving = False
 
         self.newWave = False
         self.text = None
+
+
 
         ## MAIN GAME LOOP ###
         py.mouse.set_visible(False)
@@ -149,6 +209,7 @@ class Game:
 
             # Draw
             self.win.blit(self.gui.cursor,(msPos[0] - self.gui.cursor.get_width()/2,msPos[1] - self.gui.cursor.get_height()/2,))
+            
 
             py.display.flip()
 
@@ -156,4 +217,4 @@ class Game:
 
         py.quit()
 
-Game().run()
+Game().titleScreen()
