@@ -60,16 +60,19 @@ class Game:
                     self.run()
 
 
-            #title
           
             fullTitle = self.spm.LoadSprite("TITLESCREEN", SCALEBY = 3)
           
             topTitle = fullTitle.subsurface((py.Rect(0, 0, fullTitle.get_rect().width,90)))
             bottomTitleRect = fullTitle.subsurface((py.Rect(0,90, fullTitle.get_rect().width, fullTitle.get_rect().height/2)))
 
+            titleMagnitude = 5
+            titleStartPos = 100
+            titleSpeed = 500
+
             self.win.fill("#202020")
             self.win.blit(topTitle,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),30))
-            self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),100 + math.sin(py.time.get_ticks()/400) * 5))
+            self.win.blit(bottomTitleRect,((self.screenRes.x/2)-(fullTitle.get_rect().width/2),titleStartPos + math.sin(py.time.get_ticks()/titleSpeed) * titleMagnitude))
 
             #play button
             pText = self.gui.font.render("Play!",True,(202,202,202))
@@ -208,6 +211,7 @@ class Game:
 
             # Draw
             self.win.blit(self.gui.cursor,(msPos[0] - self.gui.cursor.get_width()/2,msPos[1] - self.gui.cursor.get_height()/2,))
+            
 
             py.display.flip()
 
