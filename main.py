@@ -77,7 +77,10 @@ class Game:
             
             #play button
            #pText = self.gui.font.render("Play!",True,(202,202,202))
-            playButton = Button("Play!",300, 300,300,300,(255,255,255),True)
+            playButton = Button("Play!",0, 0, (255,0,255))
+            TESTBUTTON = Button("THIS IS A TEST!",0, 300, (255,0,0))
+            TESTBUTTON_2 = Button("TWO!",500, 0, (0,0,255))
+
             
 
             #self.win.blit(pText,((self.screenRes.x/2)-(pText.get_rect().width/2),300))
